@@ -1,4 +1,4 @@
-# OpenVLA-OFT in the LIBERO Simulation Benchmark
+# Discrete Diffusion VLA in the LIBERO Simulation Benchmark
 
 ## Relevant Files
 
