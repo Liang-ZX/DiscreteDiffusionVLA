@@ -21,6 +21,8 @@ See [SETUP.md](SETUP.md) for instructions on setting up the conda environment.
 
 See [LIBERO.md](LIBERO.md) for fine-tuning/evaluating on LIBERO simulation benchmark task suites.
 
+We also provide support for LIBERO in [libero_NPU](https://github.com/Liang-ZX/DiscreteDiffusionVLA/tree/libero_NPU). Our method achieves 98.6% on LIBERO-Object using Ascend 910B.
+
 ## Finetuning and Evaluation
 
 Please refer to [finetune.sh](finetune.sh) and [finetune_from_ckpt.sh](finetune_from_ckpt.sh) for finetuning.
