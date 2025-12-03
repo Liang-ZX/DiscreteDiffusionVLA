@@ -544,7 +544,7 @@ class PrismaticVLM(VLM):
 
         # Invoke super().generate --> taps into `GenerationMixin` which (redirects) to `forward()`
         autocast_dtype = self.llm_backbone.half_precision_dtype
-        with torch.autocast("cuda", dtype=autocast_dtype, enabled=self.enable_mixed_precision_training):
+        with torch.autocast(device_type="npu", dtype=autocast_dtype, enabled=self.enable_mixed_precision_training):
             for idx, input_ids in enumerate(batch_input_ids):
                 if isinstance(pixel_values, torch.Tensor):
                     pixel_values = pixel_values[idx]
@@ -607,7 +607,7 @@ class PrismaticVLM(VLM):
 
         # Invoke super().generate --> taps into `GenerationMixin` which (redirects) to `forward()`
         autocast_dtype = self.llm_backbone.half_precision_dtype
-        with torch.autocast("cuda", dtype=autocast_dtype, enabled=self.enable_mixed_precision_training):
+        with torch.autocast(device_type="npu", dtype=autocast_dtype, enabled=self.enable_mixed_precision_training):
             # fmt: off
             generated_ids = super().generate(
                 input_ids=input_ids,            # Shape: [1, seq]

@@ -95,7 +95,7 @@ def decode(
             raw_crit = token_critic(actions_hidden_states)              # [B, L]
             scores = - raw_crit
             # 加均匀噪声，看 step 越大噪声越小
-            scores = scores + (torch.rand_like(scores).cuda() - 0.5) * critic_noise_scale * (1.0 - ratio)
+            scores = scores + (torch.rand_like(scores).to(f"npu:{torch_npu.npu.current_device()}") - 0.5) * critic_noise_scale * (1.0 - ratio)
             selected_probs = scores
         else:
             # 5) 计算每个位置被选中的概率：probs.gather

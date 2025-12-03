@@ -8,6 +8,7 @@ import time
 
 import numpy as np
 import torch
+import torch_npu
 from PIL import Image
 from transformers import AutoModelForVision2Seq, AutoProcessor
 
@@ -30,7 +31,7 @@ def get_openvla_prompt(instruction: str) -> str:
 @torch.inference_mode()
 def verify_openvla() -> None:
     print(f"[*] Verifying OpenVLAForActionPrediction using Model `{MODEL_PATH}`")
-    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+    device = torch.device("npu") if torch.npu.is_available() else torch.device("cpu")
 
     # Load Processor & VLA
     print("[*] Instantiating Processor and Pretrained OpenVLA")
@@ -40,7 +41,7 @@ def verify_openvla() -> None:
     print("[*] Loading in BF16 with Flash-Attention Enabled")
     vla = AutoModelForVision2Seq.from_pretrained(
         MODEL_PATH,
-        attn_implementation="flash_attention_2",
+        attn_implementation="sdpa",
         torch_dtype=torch.bfloat16,
         low_cpu_mem_usage=True,
         trust_remote_code=True,

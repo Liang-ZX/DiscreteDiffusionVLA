@@ -61,7 +61,7 @@ def main(cfg: ConvertConfig) -> None:
     print("Merging LoRA weights into base model...")
     start_time = time.time()
     merged_vla = PeftModel.from_pretrained(vla, os.path.join(cfg.lora_finetuned_checkpoint_dir, "lora_adapter")).to(
-        "cuda"
+        "npu"
     )
     merged_vla = merged_vla.merge_and_unload()
     merged_vla.save_pretrained(cfg.lora_finetuned_checkpoint_dir)

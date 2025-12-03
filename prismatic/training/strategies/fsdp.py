@@ -162,7 +162,7 @@ class FSDPStrategy(TrainingStrategy):
             auto_wrap_policy=vlm_fsdp_wrapping_policy,
             mixed_precision=fsdp_precision_policy,
             sharding_strategy=self.fsdp_sharding_strategy,
-            device_id=torch.cuda.current_device(),
+            device_id=torch_npu.npu.current_device(),
             limit_all_gathers=True,
             use_orig_params=True,
         )

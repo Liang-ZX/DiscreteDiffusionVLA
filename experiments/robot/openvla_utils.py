@@ -14,6 +14,7 @@ import numpy as np
 import requests
 import tensorflow as tf
 import torch
+import torch_npu
 from huggingface_hub import HfApi, hf_hub_download
 from PIL import Image
 from transformers import AutoConfig, AutoImageProcessor, AutoModelForVision2Seq, AutoProcessor
@@ -36,7 +37,7 @@ json_numpy.patch()
 # Initialize important constants
 DATE = time.strftime("%Y_%m_%d")
 DATE_TIME = time.strftime("%Y_%m_%d-%H_%M_%S")
-DEVICE = torch.device("cuda:0") if torch.cuda.is_available() else torch.device("cpu")
+DEVICE = torch.device("npu:0") if torch_npu.npu.is_available() else torch.device("cpu")
 OPENVLA_IMAGE_SIZE = 224  # Standard image size expected by OpenVLA
 
 # Configure NumPy print settings
