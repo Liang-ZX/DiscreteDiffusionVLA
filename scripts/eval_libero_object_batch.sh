@@ -1,26 +1,21 @@
 #!/bin/bash
 set -euo pipefail
 
-GPUS=(0 1 2 3)
-MAX_PER_GPU=2
+GPUS=(3 4 5 6 7)
+MAX_PER_GPU=1
 NUM_GPUS=${#GPUS[@]}
 TOTAL_SLOTS=$((NUM_GPUS * MAX_PER_GPU))
 
-LOG_DIR=../logs/discrete_diffusion_libero_spatial/$(date +'%m%d_%H%M')
+LOG_DIR=./logs/discrete_diffusion_libero_object/$(date +'%m%d_%H%M')
 mkdir -p "$LOG_DIR"
 
 # 要跑的 STEPS（以列表形式定义，方便增删）
 STEPS=(
-  300000
-  290000
-  280000
-  270000
-  260000
-  250000
-  ...  # please add all your checkpoints
-  60000
-  70000
+  10000
+  30000
   50000
+  70000
+  80000
 )
 
 # initialization
@@ -37,9 +32,9 @@ start_job() {
   local GPU=${GPUS[$GPU_INDEX]}
 
   echo "[$(date +'%H:%M:%S')] START STEP=${STEP} on GPU=${GPU} (slot ${SLOT})"
-  CUDA_VISIBLE_DEVICES=$GPU \
-    python ../experiments/robot/libero/run_libero_eval.py \
-      --pretrained_checkpoint "/path/to/xxx--${STEP}_chkpt" \
+  ASCEND_RT_VISIBLE_DEVICES=$GPU \
+    python ./experiments/robot/libero/run_libero_eval.py \
+      --pretrained_checkpoint "/data/ruanyifan/DiscreteDiffusionVLA/checkpoints/ddopenvla-libero-object/openvla-7b-exp+libero_object_no_noops+b4+lr-0.0005+lora-r32+dropout-0.0--image_aug--parallel_dec--8_acts_chunk--bin_acts--discrete_diffusion--3rd_person_img--wrist_img--proprio_state--20251127_1210--${STEP}_chkpt" \
       --task_suite_name libero_object \
       --use_l1_regression False \
       --use_diffusion False \

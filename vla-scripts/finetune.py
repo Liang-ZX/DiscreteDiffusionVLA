@@ -13,6 +13,7 @@ from typing import Dict, Optional, Tuple, Type
 
 import draccus
 import torch
+import torch_npu
 import torch.distributed as dist
 import torch.nn as nn
 import tqdm
@@ -325,7 +326,7 @@ def run_forward_pass(
         noise, noisy_actions, diffusion_timestep_embeddings = None, None, None
 
     # VLA forward pass
-    with torch.autocast("cuda", dtype=torch.bfloat16):
+    with torch.autocast(device_type="npu", dtype=torch.bfloat16):
         output: CausalLMOutputWithPast = vla(
             input_ids=batch["input_ids"].to(device_id),
             attention_mask=batch["attention_mask"].to(device_id),
@@ -509,7 +510,7 @@ def run_diffusion_sampling(
         )  # (B, llm_dim)
         diffusion_timestep_embeddings = diffusion_timestep_embeddings.unsqueeze(1)  # (B, 1, llm_dim)
 
-        with torch.autocast("cuda", dtype=torch.bfloat16):
+        with torch.autocast(device_type="npu", dtype=torch.bfloat16):
             output = vla(
                 input_ids=batch["input_ids"].to(device_id),
                 attention_mask=batch["attention_mask"].to(device_id),
@@ -797,8 +798,8 @@ def finetune(cfg: FinetuneConfig) -> None:
     # GPU setup
     distributed_state = PartialState()
     device_id = distributed_state.local_process_index
-    torch.cuda.set_device(device_id)
-    torch.cuda.empty_cache()
+    torch_npu.npu.set_device(device_id)
+    torch_npu.npu.empty_cache()
 
     # Initialize wandb logging
     if distributed_state.is_main_process:
@@ -1052,8 +1053,11 @@ def finetune(cfg: FinetuneConfig) -> None:
         "next_actions_l1_loss": deque(maxlen=cfg.grad_accumulation_steps),
     }
 
+    initial = 0
+    if cfg.resume:
+        initial = cfg.resume_step
     # Start training
-    with tqdm.tqdm(total=cfg.max_steps, leave=False) as progress:
+    with tqdm.tqdm(total=cfg.max_steps, leave=False, initial=initial) as progress:
         vla.train()
         optimizer.zero_grad()
         for batch_idx, batch in enumerate(dataloader):

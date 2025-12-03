@@ -1,4 +1,5 @@
-# export CUDA_VISIBLE_DEVICES=1,2,3,4,5,6
+# export ASCEND_RT_VISIBLE_DEVICES=1,2,3,4,5,6
+
 
 torchrun --standalone --nnodes 1 --nproc-per-node 4 vla-scripts/finetune.py \
   --vla_path "/path/to/xxx_chkpt" \

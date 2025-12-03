@@ -1,17 +1,40 @@
-# export CUDA_VISIBLE_DEVICES=2,4,5,6
+# export ASCEND_RT_VISIBLE_DEVICES=2,4,5,6
+
+# torchrun --standalone --nnodes 1 --nproc-per-node 8 vla-scripts/finetune.py \
+#   --vla_path "/data/ruanyifan/DiscreteDiffusionVLA/checkpoints/openvla/openvla-7b-exp" \
+#   --data_root_dir "/data/ruanyifan/UniVLA/LIBERO/libero/datasets" \
+#   --dataset_name libero_object_no_noops \
+#   --run_root_dir "/data/ruanyifan/DiscreteDiffusionVLA/checkpoints/ddopenvla-libero-object" \
+#   --use_discrete_diffusion True \
+#   --use_l1_regression False \
+#   --use_diffusion False \
+#   --use_film False \
+#   --num_images_in_input 2 \
+#   --use_proprio True \
+#   --batch_size 4 \
+#   --learning_rate 5e-4 \
+#   --num_steps_before_decay 100000 \
+#   --max_steps 320005 \
+#   --save_freq 10000 \
+#   --save_latest_checkpoint_only False \
+#   --image_aug True \
+#   --lora_rank 32 \
+#   --wandb_project ddopenvla \
+#   --run_id_note "parallel_dec--8_acts_chunk--bin_acts--discrete_diffusion--3rd_person_img--wrist_img--proprio_state--$(date +%Y%m%d_%H%M)"
+
 
 torchrun --standalone --nnodes 1 --nproc-per-node 8 vla-scripts/finetune.py \
-  --vla_path "/cpfs04/user/liangzhixuan/hugginface-cpfs04/openvla/openvla-7b-exp" \
-  --data_root_dir "/path/to/modified_libero_rlds" \
+  --vla_path "/data/ruanyifan/DiscreteDiffusionVLA/checkpoints/ddopenvla-libero-object/openvla-7b-exp+libero_object_no_noops+b4+lr-0.0005+lora-r32+dropout-0.0--image_aug--parallel_dec--8_acts_chunk--bin_acts--discrete_diffusion--3rd_person_img--wrist_img--proprio_state--20251127_1210--80000_chkpt" \
+  --data_root_dir "/data/ruanyifan/UniVLA/LIBERO/libero/datasets" \
   --dataset_name libero_object_no_noops \
-  --run_root_dir "/path/to/checkpoints/ddopenvla-libero-object" \
+  --run_root_dir "/data/ruanyifan/DiscreteDiffusionVLA/checkpoints/ddopenvla-libero-object" \
   --use_discrete_diffusion True \
   --use_l1_regression False \
   --use_diffusion False \
   --use_film False \
   --num_images_in_input 2 \
   --use_proprio True \
-  --batch_size 8 \
+  --batch_size 4 \
   --learning_rate 5e-4 \
   --num_steps_before_decay 100000 \
   --max_steps 320005 \
@@ -19,9 +42,15 @@ torchrun --standalone --nnodes 1 --nproc-per-node 8 vla-scripts/finetune.py \
   --save_latest_checkpoint_only False \
   --image_aug True \
   --lora_rank 32 \
-  --wandb_entity <WANDB_ENTITY> \
-  --wandb_project <WANDB_PROJECT> \
-  --run_id_note "parallel_dec--8_acts_chunk--bin_acts--discrete_diffusion--3rd_person_img--wrist_img--proprio_state--$(date +%Y%m%d_%H%M)"
+  --wandb_project ddopenvla \
+  --resume True \
+  --resume_step 80000
+  # --run_id_note "parallel_dec--8_acts_chunk--bin_acts--discrete_diffusion--3rd_person_img--wrist_img--proprio_state--$(date +%Y%m%d_%H%M)"
+
+
+
+
+  # --wandb_entity <WANDB_ENTITY> \
 
 
 # torchrun --standalone --nnodes 1 --nproc-per-node 4 vla-scripts/finetune.py \
