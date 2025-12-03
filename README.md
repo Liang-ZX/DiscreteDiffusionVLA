@@ -11,7 +11,10 @@ This is the official PyTorch implementation of paper:
 
 <img src="assets/teaser.png" width="85%">
 
-## FOR LIBERO
+## Update
+- **\[New!\] 2025-12-03** *We also provide support for LIBERO in **Huawei NPU**. Please check [this branch](https://github.com/Liang-ZX/DiscreteDiffusionVLA/tree/libero_NPU). Thanks for all the supporters.*
+
+## For LIBERO
 
 This is an implementation with basic logics of our discrete diffusion VLA on LIBERO benchmark. We will release the whole parts after the paper acceptance. Thank you.
 
