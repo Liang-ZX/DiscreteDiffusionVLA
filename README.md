@@ -16,7 +16,7 @@ This is the official PyTorch implementation of paper:
 
 ## For LIBERO
 
-This is an implementation with basic logics of our discrete diffusion VLA on LIBERO benchmark. We will release the whole parts after the paper acceptance. Thank you.
+This is a basic implementation of our discrete diffusion VLA on LIBERO benchmark.
 
 ## Setup
 
