@@ -41,7 +41,7 @@ trials per task by setting `--num_trials_per_task`. You can also change the rand
 - The evaluation script logs results locally. You can also log results in Weights & Biases
 by setting `--use_wandb True` and specifying `--wandb_project <PROJECT>` and `--wandb_entity <ENTITY>`.
 - Note that results may vary slightly if you use a different GPU than the A100.
-- We note that the final success rate may be related to the versions of `mujoco` and `diffusers`. For reference, we use `mujoco==3.3.2` and `diffusers==0.30.3` during training for all four task suites. For evaluation, LIBERO-Goal and LIBERO-10 use the same setting; for LIBERO-Object, we find `mujoco==3.6.0` and `diffusers==0.33.1` works better; for LIBERO-Spatial, `mujoco==3.3.6` and `diffusers==0.30.3` is used.
+- **We note that the final success rate may be related to the versions of `mujoco` and `diffusers`**. For reference, we use `mujoco==3.3.2` and `diffusers==0.30.3` during training for all four task suites. For evaluation, LIBERO-Goal and LIBERO-10 use the same setting; for LIBERO-Object, we find `mujoco==3.6.0` and `diffusers==0.33.1` works better; for LIBERO-Spatial, `mujoco==3.3.6` and `diffusers==0.30.3` is used.
 - Please be sure to test your policy with the same device/GPU used to train it! Otherwise, performance may drop substantially. You may be able to avoid the performance drop if you merge the LoRA weights into the base model on the downstream device used for testing (e.g., if you train on H100 and then merge on A100 before testing on A100). You can see our script [vla-scripts/merge_lora_weights_and_save.py](vla-scripts/merge_lora_weights_and_save.py) for merging the LoRA adapter into the base model offline. It's okay if you already merged LoRA weights into the base OpenVLA model during fine-tuning; you can always redownload the base model and merge again as long as you still have the LoRA adapter (`merge_lora_weights_and_save.py` will handle this for you).
 
 We also provide reference evaluation logs:
@@ -52,11 +52,11 @@ We also provide reference evaluation logs:
 If you find this code useful for your research, please use the following BibTeX entry.
 
 ```bibtex
-@article{liang2025discrete,
+@inproceedings{ddpvla,
   title={Discrete diffusion vla: Bringing discrete diffusion to action decoding in vision-language-action policies},
-  author={Liang, Zhixuan and Li, Yizhuo and Yang, Tianshuo and Wu, Chengyue and Mao, Sitong and Pei, Liuao and Yang, Xiaokang and Pang, Jiangmiao and Mu, Yao and Luo, Ping},
-  journal={arXiv preprint arXiv:2508.20072},
-  year={2025}
+  author={Liang, Zhixuan and Li, Yizhuo and Yang, Tianshuo and Wu, Chengyue and Mao, Sitong and Nian, Tian and Pei, Liuao and Zhou, Shunbo and Yang, Xiaokang and Pang, Jiangmiao and others},
+  booktitle={Proceedings of the 43rd International Conference on Machine Learning},
+  year={2026}
 }
 ```
 
