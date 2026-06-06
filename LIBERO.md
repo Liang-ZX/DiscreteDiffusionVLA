@@ -24,6 +24,7 @@ Clone and install the [LIBERO repo](https://github.com/Lifelong-Robot-Learning/L
 git clone https://github.com/Lifelong-Robot-Learning/LIBERO.git
 pip install -e LIBERO
 pip install -r experiments/robot/libero/libero_requirements.txt  # From openvla-oft base dir
+pip install numpy==1.26.0
 ```
 
 (Optional, if you plan to launch training) To download the [LIBERO datasets](https://huggingface.co/datasets/openvla/modified_libero_rlds) that we used in our fine-tuning

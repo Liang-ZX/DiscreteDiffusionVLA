@@ -1,7 +1,6 @@
 **/experiments/logs/
 checkpoints
 wandb
-logs
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -61,6 +60,7 @@ coverage.xml
 
 # Django stuff:
 *.log
+!experiments/ref_logs/*.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal

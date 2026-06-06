@@ -4,12 +4,6 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "openvla-oft"
-authors = [
-    {name = "Moo Jin Kim", email="moojink@stanford.edu"},
-    {name = "Chelsea Finn", email="cbfinn@cs.stanford.edu"},
-    {name = "Percy Liang", email="pliang@cs.stanford.edu"},
-]
-description = "Fine-Tuning Vision-Language-Action Models: Optimizing Speed and Success"
 version = "0.0.1"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -53,11 +47,13 @@ dependencies = [
     "tensorflow_datasets==4.9.3",
     "tensorflow_graphics==2021.12.3",
     "dlimp @ git+https://github.com/moojink/dlimp_openvla",
-    "diffusers",
+    "diffusers==0.30.3",
     "imageio",
     "uvicorn",
     "fastapi",
     "json-numpy",
+    "mujoco==3.3.2",
+    "numpy==1.26.0"
 ]
 
 [project.optional-dependencies]
