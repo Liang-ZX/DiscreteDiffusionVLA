@@ -8,7 +8,7 @@ This is a version of PyTorch implementation for paper:
 >
 > Zhixuan Liang, Yizhuo Li, Tianshuo Yang, Chengyue Wu, Sitong Mao, Tian Nian, Liuao Pei, Shunbo Zhou, Xiaokang Yang, Jiangmiao Pang, Yao Mu, Ping Luo
 
-
+<img src="assets/teaser.png" width="85%">
 
 ## Update
 
